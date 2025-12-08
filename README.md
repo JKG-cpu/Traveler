@@ -4,6 +4,5 @@
 ```
 pip install -r requirements.txt
 
-# Run Main
-python Traveler/main.py
+python main.py
 ```

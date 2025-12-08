@@ -1,1 +1,0 @@
-from VividText import VividText as vt
