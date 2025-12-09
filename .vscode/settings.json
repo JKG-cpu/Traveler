@@ -10,13 +10,16 @@
         ".gitignore": true,
         "requirements.txt": true,
         "Traveler/__pycache__": true,
-        ".vscode": true
+        ".vscode": true,
+        "README.md": true
     },
     "hide-files.files": [
         "LICENSE",
         ".gitignore",
         "requirements.txt",
         "Traveler/__pycache__",
-        ".vscode"
-    ]
+        ".vscode",
+        "README.md"
+    ],
+    "python.REPL.enableREPLSmartSend": false
 }
