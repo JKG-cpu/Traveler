@@ -119,15 +119,24 @@ class Game:
                         break
 
                     elif user_input.startswith("N"):
-                        print()
-                        new_name = self.gui.userInput(
-                            message = "Enter in a name for your character",
-                            special_cases = [
-                                str.title, 
-                                str.strip
-                            ]
-                        )
-                        details["Character"]["Name"] = new_name
+                        while True:
+                            print()
+                            main_vt.print(" | ".join(self.GameLoader.name_options[details["Character"]["Gender"]]))
+                            print()
+                            new_name = self.gui.userInput(
+                                message = "Enter in a name for your character",
+                                special_cases = [
+                                    str.title, 
+                                    str.strip
+                                ]
+                            )
+
+                            if new_name in self.GameLoader.name_options[details["Character"]["Gender"]]:
+                                details["Character"]["Name"] = new_name
+                                break
+
+                            else:
+                                self.gui.wrong_option()
 
                     elif user_input.startswith("A"):
                         while True:
@@ -157,10 +166,12 @@ class Game:
                             )
 
                             if user_input == "Male":
+                                details["Character"]["Name"] = random.choice(self.GameLoader.name_options["Male"])
                                 details["Character"]["Gender"] = "Male"
                                 break
 
                             elif user_input == "Female":
+                                details["Character"]["Name"] = random.choice(self.GameLoader.name_options["Female"])
                                 details["Character"]["Gender"] = "Female"
                                 break
 
