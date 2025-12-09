@@ -98,7 +98,77 @@ class Game:
                 change_value("Name", save_name)
 
             elif user_input.startswith("Ch"):
-                pass
+                while True:
+                    cc()
+
+                    self.GameLoader.display_character_details(details["Character"])
+
+                    print()
+                    self.gui.display_options(list(sub_options["Character"].keys()) + ["Back"])
+                    print()
+
+                    user_input = self.gui.userInput(
+                        message = "Select an option to change",
+                        special_cases = [
+                            str.title,
+                            str.strip
+                        ]
+                    )
+                    
+                    if user_input.startswith("B"):
+                        break
+
+                    elif user_input.startswith("N"):
+                        print()
+                        new_name = self.gui.userInput(
+                            message = "Enter in a name for your character",
+                            special_cases = [
+                                str.title, 
+                                str.strip
+                            ]
+                        )
+                        details["Character"]["Name"] = new_name
+
+                    elif user_input.startswith("A"):
+                        while True:
+                            print()
+                            new_age = self.gui.userInput(
+                                message = "What age would you like your character to be",
+                                special_cases = [
+                                    str.strip
+                                ]
+                            )
+                            if new_age.isdigit():
+                                details["Character"]["Age"] = new_age
+                                break
+
+                            else:
+                                main_vt.print("You must type in a number...")
+
+                    elif user_input.startswith("G"):
+                        while True:
+                            print()
+                            user_input = self.gui.userInput(
+                                message = "Select a gender for your character",
+                                special_cases = [
+                                    str.strip,
+                                    str.title
+                                ]
+                            )
+
+                            if user_input == "Male":
+                                details["Character"]["Gender"] = "Male"
+                                break
+
+                            elif user_input == "Female":
+                                details["Character"]["Gender"] = "Female"
+                                break
+
+                            else:
+                                main_vt.print("That is not a gender... Enter male or female.")
+
+                    else:
+                        self.gui.wrong_option()
 
             elif user_input.startswith("Cr"):
                 pass
