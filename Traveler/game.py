@@ -36,7 +36,7 @@ class Game:
         while True:
             cc()
 
-            self.GameLoader.display_character_details(details["Character"])
+            self.gui.display_character_details(details["Character"])
 
             print()
             self.gui.display_options(options + ["Back"])
@@ -153,7 +153,7 @@ class Game:
 
         while running:
             cc()
-            self.GameLoader.display_game_details(details)
+            self.gui.display_game_details(details, self.GameLoader.name_options)
 
             self.gui.display_options(options)
 
