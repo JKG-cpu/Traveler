@@ -1,0 +1,24 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/*.crswap": true,
+        "LICENSE": true,
+        ".gitignore": true,
+        "README.md": true,
+        "requirements.txt": true,
+        "Traveler/__pycache__": true,
+        ".vscode": true
+    },
+    "hide-files.files": [
+        "LICENSE",
+        ".gitignore",
+        "README.md",
+        "requirements.txt",
+        "Traveler/__pycache__",
+        ".vscode"
+    ]
+}

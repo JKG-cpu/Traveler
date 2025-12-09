@@ -4,15 +4,21 @@ import threading
 from VividText import VividText as vt
 from rich.console import Console
 from os.path import join
+from os import system, name
 
 # Variables
 error_vt = Console()
 error_vt.style = "bold red"
 
+main_vt = Console()
+main_vt.style = "bold white"
+
 # File Paths
 HEAD_DATA_FOLDER = join("Traveler", "data")
 
 # Functions
+def cc():
+    system("cls" if name == "nt" else "clear")
 
 # Classes
 class DataLoader:
@@ -61,3 +67,70 @@ class DataLoader:
         except Exception as e:
             error_vt.print(f"Error Saving Data: {e}")
 
+class GameLoader(DataLoader):
+    def __init__(self, file_path: str):
+        super().__init__(file_path)
+
+        self.full_data = self.data
+        self.current_loaded_save = None
+
+        self.game_options = {
+            "Difficulty": {
+                "Easy": {
+                    "Starting Cash": 1000,
+                    "Starting Food": "75 lbs"
+                },
+                "Medium": {
+                    "Starting Cash": 500,
+                    "Starting Food": "50 lbs"
+                },
+                "Hard": {
+                    "Starting Cash": 250,
+                    "Starting Food": "25 lbs"
+                }
+            },
+            "Difficulty-Selection": "Easy",
+            "Name": None,
+            "Character-Name": None
+        }
+
+    def display_game_details(self, details: dict):
+        difficulty = f"Difficulty: {details["Difficulty-Selection"]}"
+
+        line = "+--" + ("-" * max(len(details["Name"] if details["Name"] else "New Save"), len(difficulty))) + "--+"
+
+        # Name
+        main_vt.print(line)
+        main_vt.print(details["Name"].center(len(line), " ") if details["Name"] else "New Save".center(len(line), " "))
+        main_vt.print(line)
+
+        # Difficulty
+        main_vt.print(line)
+        main_vt.print(difficulty.center(len(line), " "))
+        main_vt.print(line)
+
+        section = details["Difficulty"][difficulty]
+
+        main_vt.print(f"   - Starting Cash: {section["Starting Cash"]}")
+        main_vt.print(f"   - Starting Food: {section["Starting Food"]}")
+        main_vt.print("")
+
+        # Character
+
+    def create_new_game(self) -> None:
+        running = True
+        details = self.game_options.copy()
+
+        while running:
+            self.display_game_details(details)
+            running = False
+
+    def load_save(self, number: str | int) -> None:
+        if isinstance(number, int):
+            number = str(number)
+
+        self.current_loaded_save = self.full_data[f"Save {number}"]
+
+
+
+    
