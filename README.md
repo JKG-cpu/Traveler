@@ -1,8 +1,10 @@
 # Traveler
 
 ## How to run
-```
-pip install -r requirements.txt
+```bash
+git clone https://github.com/JKG-cpu/Traveler.git
+
+source Venv/bin/activate
 
 python main.py
 ```
