@@ -7,6 +7,115 @@ class Game:
         self.gui = GUI()
 
     # Creating a game
+    def difficulty(self, options) -> str:
+        while True:
+            print()
+            self.gui.display_options(options)
+            print()
+            user_input = self.gui.userInput(
+                message = "Select an option",
+                special_cases = [
+                    str.title,
+                    str.strip
+                ]
+            )
+            
+            if user_input.startswith("E"):
+                return "Easy"
+
+            elif user_input.startswith("M"):
+                return "Medium"
+
+            elif user_input.startswith("H"):
+                return "Hard"
+            
+            else:
+                self.gui.wrong_option()
+    
+    def character(self, details, options) -> None:
+        while True:
+            cc()
+
+            self.GameLoader.display_character_details(details["Character"])
+
+            print()
+            self.gui.display_options(options + ["Back"])
+            print()
+
+            user_input = self.gui.userInput(
+                message = "Select an option to change",
+                special_cases = [
+                    str.title,
+                    str.strip
+                ]
+            )
+            
+            if user_input.startswith("B"):
+                break
+
+            elif user_input.startswith("N"):
+                while True:
+                    print()
+                    main_vt.print(" | ".join(self.GameLoader.name_options[details["Character"]["Gender"]]))
+                    print()
+                    new_name = self.gui.userInput(
+                        message = "Enter in a name for your character",
+                        special_cases = [
+                            str.title, 
+                            str.strip
+                        ]
+                    )
+
+                    if new_name in self.GameLoader.name_options[details["Character"]["Gender"]]:
+                        details["Character"]["Name"] = new_name
+                        break
+
+                    else:
+                        self.gui.wrong_option()
+
+            elif user_input.startswith("A"):
+                while True:
+                    print()
+                    new_age = self.gui.userInput(
+                        message = "What age would you like your character to be",
+                        special_cases = [
+                            str.strip
+                        ]
+                    )
+                    if new_age.isdigit():
+                        details["Character"]["Age"] = new_age
+                        break
+
+                    else:
+                        main_vt.print("You must type in a number...")
+
+            elif user_input.startswith("G"):
+                while True:
+                    print()
+                    user_input = self.gui.userInput(
+                        message = "Select a gender for your character",
+                        special_cases = [
+                            str.strip,
+                            str.title
+                        ]
+                    )
+
+                    if user_input == "Male":
+                        details["Character"]["Name"] = random.choice(self.GameLoader.name_options["Male"])
+                        details["Character"]["Gender"] = "Male"
+                        break
+
+                    elif user_input == "Female":
+                        details["Character"]["Name"] = random.choice(self.GameLoader.name_options["Female"])
+                        details["Character"]["Gender"] = "Female"
+                        break
+
+                    else:
+                        main_vt.print("That is not a gender... Enter male or female.")
+
+            else:
+                self.gui.wrong_option()
+
     def create_new_game(self) -> tuple[bool, str] | tuple[bool, None]:
         """
         Docstring for create_new_game
@@ -60,126 +169,26 @@ class Game:
                 running = False
             
             elif user_input.startswith("D"):
-                while True:
-                    print()
-                    self.gui.display_options(sub_options["Difficulty"])
-                    print()
-                    user_input = self.gui.userInput(
-                        message = "Select an option",
-                        special_cases = [
-                            str.title,
-                            str.strip
-                        ]
-                    )
-
-                    if user_input.startswith("E"):
-                        change_value("Difficulty-Selection", "Easy")
-                        break
-
-                    elif user_input.startswith("M"):
-                        change_value("Difficulty-Selection", "Medium")
-                        break
-
-                    elif user_input.startswith("H"):
-                        change_value("Difficulty-Selection", "Hard")
-                        break
-                    
-                    else:
-                        self.gui.wrong_option()
+                change_value(
+                    key = "Difficulty-Selection", 
+                    value = self.difficulty(sub_options["Difficulty"])
+                )
 
             elif user_input.startswith("N"):
                 print()
-                save_name = self.gui.userInput(
-                    message = "Enter in a name for your save",
-                    special_cases = [
-                        str.strip
-                    ]
+                change_value(
+                    key = "Name", 
+                    value = self.gui.userInput(
+                        message = "Enter in a name for your save", 
+                        special_cases = [str.strip]
+                    )
                 )
-                change_value("Name", save_name)
 
             elif user_input.startswith("Ch"):
-                while True:
-                    cc()
-
-                    self.GameLoader.display_character_details(details["Character"])
-
-                    print()
-                    self.gui.display_options(list(sub_options["Character"].keys()) + ["Back"])
-                    print()
-
-                    user_input = self.gui.userInput(
-                        message = "Select an option to change",
-                        special_cases = [
-                            str.title,
-                            str.strip
-                        ]
-                    )
-                    
-                    if user_input.startswith("B"):
-                        break
-
-                    elif user_input.startswith("N"):
-                        while True:
-                            print()
-                            main_vt.print(" | ".join(self.GameLoader.name_options[details["Character"]["Gender"]]))
-                            print()
-                            new_name = self.gui.userInput(
-                                message = "Enter in a name for your character",
-                                special_cases = [
-                                    str.title, 
-                                    str.strip
-                                ]
-                            )
-
-                            if new_name in self.GameLoader.name_options[details["Character"]["Gender"]]:
-                                details["Character"]["Name"] = new_name
-                                break
-
-                            else:
-                                self.gui.wrong_option()
-
-                    elif user_input.startswith("A"):
-                        while True:
-                            print()
-                            new_age = self.gui.userInput(
-                                message = "What age would you like your character to be",
-                                special_cases = [
-                                    str.strip
-                                ]
-                            )
-                            if new_age.isdigit():
-                                details["Character"]["Age"] = new_age
-                                break
-
-                            else:
-                                main_vt.print("You must type in a number...")
-
-                    elif user_input.startswith("G"):
-                        while True:
-                            print()
-                            user_input = self.gui.userInput(
-                                message = "Select a gender for your character",
-                                special_cases = [
-                                    str.strip,
-                                    str.title
-                                ]
-                            )
-
-                            if user_input == "Male":
-                                details["Character"]["Name"] = random.choice(self.GameLoader.name_options["Male"])
-                                details["Character"]["Gender"] = "Male"
-                                break
-
-                            elif user_input == "Female":
-                                details["Character"]["Name"] = random.choice(self.GameLoader.name_options["Female"])
-                                details["Character"]["Gender"] = "Female"
-                                break
-
-                            else:
-                                main_vt.print("That is not a gender... Enter male or female.")
-
-                    else:
-                        self.gui.wrong_option()
+                self.character(
+                    details = details,
+                    options = list(sub_options["Character"].keys())
+                )
 
             elif user_input.startswith("Cr"):
                 pass
