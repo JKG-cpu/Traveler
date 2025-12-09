@@ -3,7 +3,7 @@ from .settings import *
 class GUI:
     def __init__(self) -> None:
         # Typewriters
-        self.main_text = vt(bold = True, sleep = .05)
+        self.main_text = vt(bold = True, sleep = .03)
         
         # Quick Printers
         self.quick_text = Console()
@@ -11,11 +11,14 @@ class GUI:
 
     # Display
     def display_options(self, options: list[str]) -> None:
+        worded = []
         for i, option in enumerate(options, 1):
             if i == len(options):
-                self.quick_text.print(f"{option} ")
+                worded.append(f"{option} ")
             else:
-                self.quick_text.print(f"{option} |", end = " ")
+                worded.append(f"{option} | ")
+        
+        self.quick_text.print("".join(worded))
 
     def wrong_option(self) -> None:
         self.main_text.typewriter("That is not a valid option...")

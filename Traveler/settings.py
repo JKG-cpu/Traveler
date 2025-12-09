@@ -104,63 +104,56 @@ class GameLoader(DataLoader):
         }
 
     def display_game_details(self, details: dict):
-        # Game Details
-        difficulty = f"Difficulty: {details["Difficulty-Selection"]}"
+        # --- Prepare game info ---
+        game_name = details["Name"] if details["Name"] else "New Save"
+        difficulty = f"Difficulty: {details['Difficulty-Selection']}"
 
-        game_line = "+--" + ("-" * max(len(details["Name"] if details["Name"] else "New Save"), len(difficulty))) + "--+"
-        full_game_line = "+--" + (("-" * (len(game_line) - 3)) + "---" + ("-" * (len(game_line) - 3))) + "--+"
+        # Difficulty-specific settings
+        section = details["Difficulty"][details["Difficulty-Selection"]]
+        settings = [
+            f"Starting Cash: {section['Starting Cash']}",
+            f"Starting Food: {section['Starting Food']}"
+        ]
 
-        main_vt.print(game_line, end = "   ")
-        main_vt.print(game_line)
-        main_vt.print(details["Name"].center(len(game_line)) if details["Name"] else "New Save".center(len(game_line)), end = "   ")
-        main_vt.print(difficulty.center(len(game_line)))
-        main_vt.print(game_line, end = "   ")
-        main_vt.print(game_line)
+        # Character details
+        character = details["Character"]
+        name_text = f"Name: {character['Name']}" if character['Name'] else f"Name: {random.choice(self.name_options.get(character['Gender'], self.name_options[random.choice(['Male', 'Female'])]))}"
+        age_text = f"Age: {character['Age']}" if character['Age'] else "Age: 20"
+        gender_text = f"Gender: {character['Gender']}" if character['Gender'] else "Gender: Male"
+        char_line_content = f"{name_text}  {age_text}  {gender_text}"
+
+        # --- Calculate unified width ---
+        all_lines = [game_name, difficulty] + settings + [char_line_content, "Character", "Settings"]
+        box_width = max(len(line) for line in all_lines) + 4  # padding
+        border = f"+{'-' * box_width}+"
+
+        # --- Print Game Info ---
+        main_vt.print("Game Settings".center(box_width + 2))
+        main_vt.print(border)
+        main_vt.print(f"| {game_name.center(box_width - 2)} |")
+        main_vt.print(f"| {difficulty.center(box_width - 2)} |")
+        main_vt.print(border)
         print()
 
-        section = details["Difficulty"][details["Difficulty-Selection"]]
+        # --- Print Settings ---
+        main_vt.print(border)
+        main_vt.print(f"  Settings ".center(box_width + 2))
+        main_vt.print(border)
+        for s in settings:
+            main_vt.print(f"| {s.ljust(box_width - 2)} |")
+        main_vt.print(border)
+        print()
 
-        main_vt.print(full_game_line)
-        main_vt.print("  Settings ".center(len(full_game_line)))
-        main_vt.print(full_game_line)
-        main_vt.print(f"   - Starting Cash: {section["Starting Cash"]}")
-        main_vt.print(f"   - Starting Food: {section["Starting Food"]}")
-        main_vt.print("")
-
-        # Character Details
-        character = details["Character"]
-
-        name_text = f"Name: {character["Name"]}" if character["Name"] else f"Name: {random.choice(self.name_options.get(character["Gender"], self.name_options[random.choice(["Male", "Female"])]))}"
-        age_text = f"Age: {character["Age"]}" if character["Age"] else "Age: 20"
-        gender_text = f"Gender: {character["Gender"]}" if character["Gender"] else "Gender: Male"
-
-        char_line = "+--" + (
-            "-" * len(name_text) + "---" +
-            "-" * len(age_text) + "---" + 
-            "-" * len(gender_text)
-        ) + "--+"
-
-        main_vt.print(char_line)
-        character_dis = "Character".center(len(char_line))
-        main_vt.print(f"[italic]{character_dis}[/]")
-        main_vt.print(char_line)
-        main_vt.print(f"   {name_text}   {age_text}   {gender_text}   ")
-        main_vt.print(char_line)
-
-    def create_new_game(self) -> None:
-        running = True
-        details = self.game_options.copy()
-
-        while running:
-            self.display_game_details(details)
-            running = False
+        # --- Print Character Info ---
+        main_vt.print(border)
+        main_vt.print(f"[italic]{' Character'.center(box_width)}[/]")
+        main_vt.print(border)
+        main_vt.print(f"| {char_line_content.center(box_width - 2)} |")
+        main_vt.print(border)
+        print()
 
     def load_save(self, number: str | int) -> None:
         if isinstance(number, int):
             number = str(number)
 
         self.current_loaded_save = self.full_data[f"Save {number}"]
-
-
-
-    

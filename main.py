@@ -7,6 +7,7 @@ class Main:
         self.menu_options = ["New Game", "Resume Game", "Settings", "Quit"]
 
         self.gui = GUI()
+        self.game = Game(join(HEAD_DATA_FOLDER, "saves.json"))
 
     # New Game
     def new_game(self) -> bool:
@@ -78,8 +79,7 @@ class Main:
                 self.gui.wrong_option()
 
     def test(self) -> None:
-        gameloader = GameLoader(join("Traveler", "data", "saves.json"))
-        gameloader.create_new_game()
+        self.game.create_new_game()
 
 if __name__ == "__main__":
     main = Main()
