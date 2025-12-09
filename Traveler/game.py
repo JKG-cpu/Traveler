@@ -6,13 +6,21 @@ class Game:
         self.GameLoader = GameLoader(file_path)
         self.gui = GUI()
 
-    def create_new_game(self) -> bool:
+    # Creating a game
+    def create_new_game(self) -> tuple[bool, str] | tuple[bool, None]:
         """
         Docstring for create_new_game
         
         :returns: True if a new save is created, False if a new save is canceled
-        :rtype: bool
+        :rtype: tuple[bool, str] | tuple[bool, None]
         """
+        # Check if more than 3 saves
+        if all(save["Used"] for save in self.GameLoader.full_data.values()):
+            return False
+
+        def change_value(key, value):
+            details[key] = value
+
         running = True
         details = self.GameLoader.game_options.copy()
 
@@ -27,9 +35,11 @@ class Game:
         sub_options = {
             "Difficulty": ["Easy", "Medium", "Hard"],
             "Name": "Input",
-            "Character": [
-
-            ]
+            "Character": {
+                "Name": "", 
+                "Age": "", 
+                "Gender": ["Male", "Female"]
+            }
         }
 
         while running:
@@ -50,10 +60,42 @@ class Game:
                 running = False
             
             elif user_input.startswith("D"):
-                pass
+                while True:
+                    print()
+                    self.gui.display_options(sub_options["Difficulty"])
+                    print()
+                    user_input = self.gui.userInput(
+                        message = "Select an option",
+                        special_cases = [
+                            str.title,
+                            str.strip
+                        ]
+                    )
+
+                    if user_input.startswith("E"):
+                        change_value("Difficulty-Selection", "Easy")
+                        break
+
+                    elif user_input.startswith("M"):
+                        change_value("Difficulty-Selection", "Medium")
+                        break
+
+                    elif user_input.startswith("H"):
+                        change_value("Difficulty-Selection", "Hard")
+                        break
+                    
+                    else:
+                        self.gui.wrong_option()
 
             elif user_input.startswith("N"):
-                pass
+                print()
+                save_name = self.gui.userInput(
+                    message = "Enter in a name for your save",
+                    special_cases = [
+                        str.strip
+                    ]
+                )
+                change_value("Name", save_name)
 
             elif user_input.startswith("Ch"):
                 pass

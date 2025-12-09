@@ -104,30 +104,25 @@ class GameLoader(DataLoader):
         }
 
     def display_game_details(self, details: dict):
-        # --- Prepare game info ---
         game_name = details["Name"] if details["Name"] else "New Save"
         difficulty = f"Difficulty: {details['Difficulty-Selection']}"
 
-        # Difficulty-specific settings
         section = details["Difficulty"][details["Difficulty-Selection"]]
         settings = [
             f"Starting Cash: {section['Starting Cash']}",
             f"Starting Food: {section['Starting Food']}"
         ]
 
-        # Character details
         character = details["Character"]
         name_text = f"Name: {character['Name']}" if character['Name'] else f"Name: {random.choice(self.name_options.get(character['Gender'], self.name_options[random.choice(['Male', 'Female'])]))}"
         age_text = f"Age: {character['Age']}" if character['Age'] else "Age: 20"
         gender_text = f"Gender: {character['Gender']}" if character['Gender'] else "Gender: Male"
         char_line_content = f"{name_text}  {age_text}  {gender_text}"
 
-        # --- Calculate unified width ---
         all_lines = [game_name, difficulty] + settings + [char_line_content, "Character", "Settings"]
-        box_width = max(len(line) for line in all_lines) + 4  # padding
+        box_width = max(len(line) for line in all_lines) + 4
         border = f"+{'-' * box_width}+"
 
-        # --- Print Game Info ---
         main_vt.print("Game Settings".center(box_width + 2))
         main_vt.print(border)
         main_vt.print(f"| {game_name.center(box_width - 2)} |")
@@ -135,7 +130,6 @@ class GameLoader(DataLoader):
         main_vt.print(border)
         print()
 
-        # --- Print Settings ---
         main_vt.print(border)
         main_vt.print(f"  Settings ".center(box_width + 2))
         main_vt.print(border)
@@ -144,7 +138,6 @@ class GameLoader(DataLoader):
         main_vt.print(border)
         print()
 
-        # --- Print Character Info ---
         main_vt.print(border)
         main_vt.print(f"[italic]{' Character'.center(box_width)}[/]")
         main_vt.print(border)
