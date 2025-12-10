@@ -1,12 +1,15 @@
-from .settings import *
+from .systems.settings import *
 from .gui import GUI
+from .models.player import Player
 
 class Game:
     def __init__(self, file_path):
         self.GameLoader = GameLoader(file_path)
         self.gui = GUI()
+        self.player = Player()
 
     # Creating a game
+    #region
     def difficulty(self, options) -> str:
         while True:
             print()
@@ -198,3 +201,11 @@ class Game:
 
             else:
                 self.gui.wrong_option()
+    #endregion
+
+    # Run Game
+    def play_game(self, save_number: int) -> None:
+        running = True
+        self.GameLoader.load_save(save_number)
+        loaded_save = self.GameLoader.current_loaded_save
+

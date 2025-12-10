@@ -1,4 +1,4 @@
-from .settings import *
+from ..systems import *
 
 class GUI:
     def __init__(self) -> None:
@@ -86,6 +86,16 @@ class GUI:
         main_vt.print(longest_line)
         main_vt.print(f" {name} | {age} | {gender} ".center(len(longest_line)))
         main_vt.print(longest_line)
+
+    def quick_game_details(self, details: dict):
+        description = details["Base Desc"]
+        difficulty = description["Difficulty"]
+        name = description["Name"]
+        cash = description["Cash"]
+        food = description["Food"]
+
+        # Display Output
+        
 
     # Input
     def userInput(self, message: str, special_cases: dict = None) -> str:

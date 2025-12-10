@@ -1,1 +1,9 @@
-{}
+{
+  "Difficulty-Selection": "Easy",
+  "Name": "New Save",
+  "Character": {
+    "Name": "Daniel",
+    "Age": "27",
+    "Gender": "Male"
+  }
+}

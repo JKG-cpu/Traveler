@@ -1,1 +1,9 @@
-{}
+{
+  "Difficulty-Selection": "Easy",
+  "Name": "First World",
+  "Character": {
+    "Name": "James",
+    "Age": "20",
+    "Gender": "Male"
+  }
+}

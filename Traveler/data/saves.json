@@ -2,21 +2,30 @@
   "Save 1": {
     "FilePath": "Traveler/data/Saves/save1.json",
     "Base Desc": {
-      "Difficulty": ""
+      "Difficulty": "Easy",
+      "Name": "First World",
+      "Cash": "$1000",
+      "Food": "75 lbs"
     },
-    "Used": false
+    "Used": true
   },
   "Save 2": {
     "FilePath": "Traveler/data/Saves/save2.json",
     "Base Desc": {
-      "Difficulty": ""
+      "Difficulty": "Easy",
+      "Name": "New Save",
+      "Cash": "$1000",
+      "Food": "75 lbs"
     },
-    "Used": false
+    "Used": true
   },
   "Save 3": {
     "FilePath": "Traveler/data/Saves/save3.json",
     "Base Desc": {
-      "Difficulty": ""
+      "Difficulty": "",
+      "Name": "",
+      "Cash": "",
+      "Food": ""
     },
     "Used": false
   }

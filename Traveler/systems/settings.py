@@ -133,7 +133,17 @@ class GameLoader(DataLoader):
     def new_save(self, details: dict) -> None | bool:
         for save in self.data:
             if not self.data[save]["Used"]:
+                # Main Save
                 self.data[save]["Used"] = True
+                head = self.data[save]["Base Desc"]
+                head["Difficulty"] = details["Difficulty-Selection"]
+                head["Name"] = details["Name"]
+                head["Cash"] = details["Difficulty"][details["Difficulty-Selection"]]["Starting Cash"]
+                head["Food"] = details["Difficulty"][details["Difficulty-Selection"]]["Starting Food"]
+
+
+                # Remove Difficulty Settings from Details
+                details.pop("Difficulty")
                 file_path = self.data[save]["FilePath"]
                 self.begin_process(
                     type = "Save",
@@ -148,3 +158,8 @@ class GameLoader(DataLoader):
 
         else:
             return False
+        
+class PlayerLoader(DataLoader):
+    def __init__(self, file_path: str) -> None:
+        super().__init__(file_path)
+        
