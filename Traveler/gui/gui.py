@@ -10,6 +10,8 @@ class GUI:
         self.quick_text.style = "bold white"
 
     # Display
+    # Game Details
+    #region
     def display_options(self, options: list[str]) -> None:
         worded = []
         for i, option in enumerate(options, 1):
@@ -95,14 +97,73 @@ class GUI:
         food = description["Food"]
 
         # Display Output
+    #endregion
+
+    # Traveling Display
+    def display_window(self, data: dict, window_width: int = 70) -> str | None:
+        day = data["day"]
+        food = data["food"]
+        cash = data["cash"]
+        health = data["health"]
+        weather = data["weather"]
+        speed = data["speed"]
+        distance = data["distance"]
+    
+        progress_percent = data["progress"]
+
+        def progress_bar(percent, length = 35):
+            filled = int(length * percent // 100)
+            bar = "■" * filled + "-" * (length - filled)
+            return f"[{bar}]"
         
+        # Top
+        border = "─" * window_width
+        main_vt.print(border)
+
+        # Columns
+        left_col = f"DAY: {day}\nFOOD: {food} lbs\nCASH: ${cash}\nHEALTH: {health}"
+        right_col = f"WEATHER: {weather}\nSPEED: {speed}\nDISTANCE: {distance} miles\nPROGRESS: {progress_percent}%"
+
+        left_lines = left_col.split("\n")
+        right_lines = right_col.split("\n")
+
+        # Padding
+        column_width = 30
+        total_width = column_width * 2
+        padding = (window_width - total_width) // 2
+
+        for l, r in zip(left_lines, right_lines):
+            main_vt.print(" " * padding + f"{l:<{column_width}}{r:>{column_width}}")
+
+        # Empty Line 
+        print()
+
+        # Progress bar
+        bar = progress_bar(progress_percent)
+        main_vt.print(bar.center(window_width))
+        main_vt.print(f"[italic]({progress_percent})% of the way[/]".center(window_width))
+
+        # Empty line
+        print()
+
+        # Status
+        status = data["Status"]
+        main_vt.print(f"[italic]{status}[/]".center(window_width))
+
+        # Bottom Border
+        main_vt.print(border)
+
+        # Command Zone
+        return self.userInput(message = "Enter a command or press enter to continue", end =  ". ", special_cases = [str.title, str.strip])
 
     # Input
-    def userInput(self, message: str, special_cases: dict = None) -> str:
-        userInput = self.main_text.inputTypewriter(msg = message)
+    #region
+    def userInput(self, message: str, end: str = " > ", special_cases: dict = None) -> str:
+        userInput = self.main_text.inputTypewriter(msg = message, end = end)
         
         if special_cases:
             for func in special_cases:
                 userInput = func(userInput)
         
         return userInput
+    #endregion

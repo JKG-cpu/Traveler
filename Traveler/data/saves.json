@@ -7,7 +7,7 @@
       "Cash": "$1000",
       "Food": "75 lbs"
     },
-    "Used": true
+    "Used": false
   },
   "Save 2": {
     "FilePath": "Traveler/data/Saves/save2.json",
@@ -17,7 +17,7 @@
       "Cash": "$1000",
       "Food": "75 lbs"
     },
-    "Used": true
+    "Used": false
   },
   "Save 3": {
     "FilePath": "Traveler/data/Saves/save3.json",

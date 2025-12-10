@@ -1,12 +1,16 @@
-from .systems.settings import *
+from .systems import *
 from .gui import GUI
-from .models.player import Player
+from .models import Player
+from .managers import *
 
 class Game:
     def __init__(self, file_path):
         self.GameLoader = GameLoader(file_path)
         self.gui = GUI()
         self.player = Player()
+
+        # Event Managers
+        self.travelManager = TravelManager()
 
     # Creating a game
     #region
@@ -209,3 +213,22 @@ class Game:
         self.GameLoader.load_save(save_number)
         loaded_save = self.GameLoader.current_loaded_save
 
+        # Events
+        TRAVELING = False
+        IN_TOWN = False
+        EVENT = False
+        PAUSED = False
+
+        while running:
+            if TRAVELING:
+                return_value = self.travelManager.run()
+                # Check Value
+
+            elif IN_TOWN:
+                pass
+
+            elif EVENT:
+                pass
+
+            elif PAUSED:
+                pass

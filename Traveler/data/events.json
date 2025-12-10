@@ -1,0 +1,39 @@
+{
+    "road_events": [
+        {
+            "Name": "",
+            "Description": "",
+            "choices": [
+                {
+                    "text": "",
+                    "effects": {
+                        "days": "",
+                        "health": 0,
+                        "food": -0
+                    }
+                },
+                {
+                    "text": "",
+                    "effects": {
+                        "days": "",
+                        "health": 0,
+                        "food": -0
+                    }
+                }
+            ],
+            "trigger_chance": 0
+        }
+    ],
+    "party_events": [
+
+    ],
+    "town_events": [
+
+    ],
+    "environment_events": [
+        
+    ],
+    "positive_events": [
+
+    ]
+}
