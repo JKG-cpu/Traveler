@@ -26,6 +26,8 @@ class GUI:
 
     def display_game_details(self, details: dict, name_options) -> None:
         game_name = details["Name"] if details["Name"] else "New Save"
+        if game_name == "New Save":
+            details["Name"] = "New Save"
         difficulty = f"Difficulty: {details['Difficulty-Selection']}"
 
         section = details["Difficulty"][details["Difficulty-Selection"]]

@@ -124,7 +124,7 @@ class Game:
         :rtype: tuple[bool, str] | tuple[bool, None]
         """
         # Check if more than 3 saves
-        if all(save["Used"] for save in self.GameLoader.full_data.values()):
+        if all(save["Used"] for save in self.GameLoader.data.values()):
             return False
 
         def change_value(key, value):
@@ -191,7 +191,10 @@ class Game:
                 )
 
             elif user_input.startswith("Cr"):
-                pass
+                self.GameLoader.new_save(
+                    details = details
+                )
+                running = False
 
             else:
                 self.gui.wrong_option()

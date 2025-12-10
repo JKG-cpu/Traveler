@@ -28,7 +28,7 @@ class DataLoader:
         self.data = None
         self.begin_process("Load", instant = True)
     
-    def begin_process(self, type: str, data: dict = None, instant: bool = False) -> None:
+    def begin_process(self, type: str, data: dict = None, instant: bool = False, file_path: str | None = None) -> None:
         """
         Docstring for begin_process
         
@@ -41,17 +41,28 @@ class DataLoader:
             if instant: 
                 self.load_data()
                 return
-            threading.Thread(target = self.load_data).start()
+            threading.Thread(target = self.load_data, args = (file_path,)).start()
 
         elif type == "Save":
             if data == None:
                 raise TypeError(f"\nInvalid Data in {self.__class__.__name__}.{self.__class__.begin_process.__name__}(); data = {data}")
-            threading.Thread(target = self.save_data, args = (data,)).start()
+            threading.Thread(target = self.save_data, args = (data, file_path,)).start()
 
         else:
             raise TypeError(f"\nInvalid Type in {self.__class__.__name__}.{self.__class__.begin_process.__name__}(); Type = {type}")
 
-    def load_data(self):
+    def load_data(self, filepath: str | None = None) -> None | dict:
+        if filepath:
+            try:
+                with open(filepath, "r") as f:
+                    return json.load(f)
+
+            except Exception as e:
+                error_vt.print(f"Error Loading Data: {e}")
+                input()
+            
+            return
+
         try:
             with open(self.file_path, "r") as f:
                 self.data = json.load(f)
@@ -59,20 +70,32 @@ class DataLoader:
         except Exception as e:
             error_vt.print(f"Error Loading Data: {e}")
             self.data = {}
+            input()
 
-    def save_data(self, data: dict | list):
+    def save_data(self, data: dict | list, filepath: str | None = None):
+        if filepath:
+            try:
+                with open(filepath, "w") as f:
+                    json.dump(data, f, indent = 2)
+            
+            except Exception as e:
+                error_vt.print(f"Error Saving Data: {e}")
+                input()
+
+            return
+
         try:
             with open(self.file_path, "w") as f:
-                json.dump(f, data)
+                json.dump(data, f, indent = 2)
         
         except Exception as e:
             error_vt.print(f"Error Saving Data: {e}")
+            input()
 
 class GameLoader(DataLoader):
     def __init__(self, file_path: str):
         super().__init__(file_path)
 
-        self.full_data = self.data
         self.current_loaded_save = None
 
         self.game_options = {
@@ -104,7 +127,24 @@ class GameLoader(DataLoader):
         }
 
     def load_save(self, number: str | int) -> None:
-        if isinstance(number, int):
-            number = str(number)
+        file_path = self.data[f"Save {number}"]["FilePath"]
+        self.current_loaded_save = self.load_data(filepath = file_path)
 
-        self.current_loaded_save = self.full_data[f"Save {number}"]
+    def new_save(self, details: dict) -> None | bool:
+        for save in self.data:
+            if not self.data[save]["Used"]:
+                self.data[save]["Used"] = True
+                file_path = self.data[save]["FilePath"]
+                self.begin_process(
+                    type = "Save",
+                    data = details,
+                    file_path = file_path
+                )
+                self.begin_process(
+                    type = "Save",
+                    data = self.data
+                )
+                break
+
+        else:
+            return False
