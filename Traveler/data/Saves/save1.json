@@ -1,9 +1,34 @@
 {
   "Difficulty-Selection": "Easy",
-  "Name": "First World",
+  "Name": "New Save",
   "Character": {
-    "Name": "James",
-    "Age": "20",
+    "Name": "Daniel",
+    "Age": "28",
     "Gender": "Male"
+  },
+  "Inventory": [
+    {
+      "Name": "Food",
+      "Amount": "75 lbs",
+      "Details": "Yummy"
+    },
+    {
+      "Name": "Cash",
+      "Amount": "$1000",
+      "Details": "Oooh... Money!"
+    }
+  ],
+  "Event": "Traveling",
+  "Event-types": {
+    "Traveling": {
+      "day": 0,
+      "weather": "",
+      "speed": "",
+      "distance": 0,
+      "progress": 0
+    },
+    "In-Town": {},
+    "Event": {},
+    "Paused": {}
   }
 }

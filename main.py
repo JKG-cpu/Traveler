@@ -79,7 +79,7 @@ class Main:
                 self.gui.wrong_option()
 
     def test(self) -> None:
-        self.game.create_new_game()
+        self.game.play_game(1)
 
 if __name__ == "__main__":
     main = Main()

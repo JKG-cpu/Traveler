@@ -219,10 +219,24 @@ class Game:
         EVENT = False
         PAUSED = False
 
+        # Check event from last save
+        match loaded_save["Event"]:
+            case "Traveling":
+                TRAVELING = True
+
+            case "In-Town":
+                IN_TOWN = True
+
+            case "Event":
+                EVENT = True
+            
+            case PAUSED:
+                PAUSED = True
+
         while running:
             if TRAVELING:
-                return_value = self.travelManager.run()
-                # Check Value
+                return_value = self.travelManager.run(loaded_save)
+                running = False
 
             elif IN_TOWN:
                 pass

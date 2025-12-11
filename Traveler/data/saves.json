@@ -3,11 +3,11 @@
     "FilePath": "Traveler/data/Saves/save1.json",
     "Base Desc": {
       "Difficulty": "Easy",
-      "Name": "First World",
+      "Name": "New Save",
       "Cash": "$1000",
       "Food": "75 lbs"
     },
-    "Used": false
+    "Used": true
   },
   "Save 2": {
     "FilePath": "Traveler/data/Saves/save2.json",

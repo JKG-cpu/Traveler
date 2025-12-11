@@ -102,8 +102,8 @@ class GUI:
     # Traveling Display
     def display_window(self, data: dict, window_width: int = 70) -> str | None:
         day = data["day"]
-        food = data["food"]
-        cash = data["cash"]
+        food = data["food"]["Amount"]
+        cash = data["cash"]["Amount"]
         health = data["health"]
         weather = data["weather"]
         speed = data["speed"]
@@ -121,7 +121,7 @@ class GUI:
         main_vt.print(border)
 
         # Columns
-        left_col = f"DAY: {day}\nFOOD: {food} lbs\nCASH: ${cash}\nHEALTH: {health}"
+        left_col = f"DAY: {day}\nFOOD: {food}\nCASH: {cash}\nHEALTH: {health}"
         right_col = f"WEATHER: {weather}\nSPEED: {speed}\nDISTANCE: {distance} miles\nPROGRESS: {progress_percent}%"
 
         left_lines = left_col.split("\n")
@@ -140,21 +140,21 @@ class GUI:
 
         # Progress bar
         bar = progress_bar(progress_percent)
-        main_vt.print(bar.center(window_width))
+        main_vt.print(bar.center(window_width - 9))
         main_vt.print(f"[italic]({progress_percent})% of the way[/]".center(window_width))
 
         # Empty line
         print()
 
         # Status
-        status = data["Status"]
+        status = "Traveling on..."
         main_vt.print(f"[italic]{status}[/]".center(window_width))
 
         # Bottom Border
         main_vt.print(border)
 
         # Command Zone
-        return self.userInput(message = "Enter a command or press enter to continue", end =  ". ", special_cases = [str.title, str.strip])
+        return self.userInput(message = "Enter a command or press enter to continue", special_cases = [str.title, str.strip])
 
     # Input
     #region

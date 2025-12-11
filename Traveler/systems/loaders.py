@@ -98,11 +98,21 @@ class GameLoader(DataLoader):
                 "Age": None,
                 "Gender": None
             },
+
+            "Inventory": [],
+
             "Event": "Traveling",
             "Event-types": {
                 "Traveling": {
-                    "distance": 0
-                }
+                    "day": 0,
+                    "weather": "",
+                    "speed": "",
+                    "distance": 0,
+                    "progress": 0
+                },
+                "In-Town": {},
+                "Event": {},
+                "Paused": {}
             }
         }
         self.name_options = {
@@ -124,6 +134,18 @@ class GameLoader(DataLoader):
                 head["Name"] = details["Name"]
                 head["Cash"] = details["Difficulty"][details["Difficulty-Selection"]]["Starting Cash"]
                 head["Food"] = details["Difficulty"][details["Difficulty-Selection"]]["Starting Food"]
+
+                # Add Specific Items to inventory
+                details["Inventory"].append({
+                    "Name": "Food",
+                    "Amount": details["Difficulty"][details["Difficulty-Selection"]]["Starting Food"],
+                    "Details": "Yummy"
+                })
+                details["Inventory"].append({
+                    "Name": "Cash",
+                    "Amount": details["Difficulty"][details["Difficulty-Selection"]]["Starting Cash"],
+                    "Details": "Oooh... Money!"
+                })
 
                 # Remove Difficulty Settings from Details
                 details.pop("Difficulty")
