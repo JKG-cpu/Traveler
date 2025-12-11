@@ -17,16 +17,16 @@
       "Cash": "$1000",
       "Food": "75 lbs"
     },
-    "Used": false
+    "Used": true
   },
   "Save 3": {
     "FilePath": "Traveler/data/Saves/save3.json",
     "Base Desc": {
-      "Difficulty": "",
-      "Name": "",
-      "Cash": "",
-      "Food": ""
+      "Difficulty": "Medium",
+      "Name": "New Save",
+      "Cash": "$500",
+      "Food": "50 lbs"
     },
-    "Used": false
+    "Used": true
   }
 }

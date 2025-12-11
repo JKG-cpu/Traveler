@@ -124,7 +124,7 @@ class GameLoader(DataLoader):
         file_path = self.data[f"Save {number}"]["FilePath"]
         self.current_loaded_save = self.load_data(filepath = file_path)
 
-    def new_save(self, details: dict) -> None | bool:
+    def new_save(self, details: dict) -> int | bool:
         for save in self.data:
             if not self.data[save]["Used"]:
                 # Main Save
@@ -159,7 +159,7 @@ class GameLoader(DataLoader):
                     type = "Save",
                     data = self.data
                 )
-                break
+                return save[-1]
 
         else:
             return False

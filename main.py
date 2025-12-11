@@ -10,22 +10,23 @@ class Main:
         self.game = Game(join(HEAD_DATA_FOLDER, "saves.json"))
 
     # New Game
-    def new_game(self) -> bool:
-        """
-        :return: Returns False for quit and True for main menu
-        :rtype: bool
-        """
+    def new_game(self) -> tuple[bool, int] | tuple[bool, None]:
         return_to_main_menu = True
 
-        return return_to_main_menu
+        return_value = self.game.create_new_game()
+
+        return return_value
 
     # Resume Game
-    def resume_game(self) -> bool:
+    def resume_game(self, save_number: int) -> bool:
         """
         :return: Returns False for quit and True for main menu
         :rtype: bool
         """
+        cc()
         return_to_main_menu = True
+
+        self.game.play_game(save_number)
 
         return return_to_main_menu
 
@@ -63,9 +64,10 @@ class Main:
                 self.quit()
             
             elif userInput.startswith("N"):
-                main_menu = self.new_game()
-                if not main_menu:
-                    self.quit()
+                return_value = self.new_game()
+                if return_value[1] is None:
+                    continue
+                self.resume_game(return_value[1])
 
             elif userInput.startswith("R"):
                 main_menu = self.resume_game()
@@ -78,9 +80,6 @@ class Main:
             else:
                 self.gui.wrong_option()
 
-    def test(self) -> None:
-        self.game.play_game(1)
-
 if __name__ == "__main__":
     main = Main()
-    main.test()
+    main.run()

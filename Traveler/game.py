@@ -123,7 +123,7 @@ class Game:
             else:
                 self.gui.wrong_option()
 
-    def create_new_game(self) -> tuple[bool, str] | tuple[bool, None]:
+    def create_new_game(self) -> tuple[bool, int] | tuple[bool, None]:
         """
         Docstring for create_new_game
         
@@ -174,6 +174,7 @@ class Game:
 
             if user_input.startswith("Ca"):
                 running = False
+                return (False, None)
             
             elif user_input.startswith("D"):
                 change_value(
@@ -198,10 +199,11 @@ class Game:
                 )
 
             elif user_input.startswith("Cr"):
-                self.GameLoader.new_save(
+                save_number = self.GameLoader.new_save(
                     details = details
                 )
                 running = False
+                return (True, save_number)
 
             else:
                 self.gui.wrong_option()
@@ -219,10 +221,15 @@ class Game:
         EVENT = False
         PAUSED = False
 
+        # Event Specific Variables
+        NEW_TRAVEL = False
+
         # Check event from last save
         match loaded_save["Event"]:
             case "Traveling":
                 TRAVELING = True
+                if loaded_save["Event-types"]["Traveling"]["distance"] == 0:
+                    NEW_TRAVEL = True
 
             case "In-Town":
                 IN_TOWN = True
@@ -235,7 +242,8 @@ class Game:
 
         while running:
             if TRAVELING:
-                return_value = self.travelManager.run(loaded_save)
+                return_value = self.travelManager.run(loaded_save, NEW_TRAVEL)
+                NEW_TRAVEL = False
                 running = False
 
             elif IN_TOWN:

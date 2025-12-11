@@ -1,1 +1,44 @@
-{}
+{
+  "Difficulty-Selection": "Medium",
+  "Name": "New Save",
+  "Character": {
+    "Name": "Emily",
+    "Age": "30",
+    "Gender": "Female"
+  },
+  "Inventory": [
+    {
+      "Name": "Food",
+      "Amount": "75 lbs",
+      "Details": "Yummy"
+    },
+    {
+      "Name": "Cash",
+      "Amount": "$1000",
+      "Details": "Oooh... Money!"
+    },
+    {
+      "Name": "Food",
+      "Amount": "50 lbs",
+      "Details": "Yummy"
+    },
+    {
+      "Name": "Cash",
+      "Amount": "$500",
+      "Details": "Oooh... Money!"
+    }
+  ],
+  "Event": "Traveling",
+  "Event-types": {
+    "Traveling": {
+      "day": 0,
+      "weather": "",
+      "speed": "",
+      "distance": 0,
+      "progress": 0
+    },
+    "In-Town": {},
+    "Event": {},
+    "Paused": {}
+  }
+}
