@@ -132,7 +132,7 @@ class Game:
         """
         # Check if more than 3 saves
         if all(save["Used"] for save in self.GameLoader.data.values()):
-            return False
+            return (False, None)
 
         def change_value(key, value):
             details[key] = value

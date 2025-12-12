@@ -4,6 +4,8 @@ import random
 
 from VividText import VividText as vt
 from rich.console import Console
+from rich.table import Table
+from rich import box
 from os.path import join
 from os import system, name
 
@@ -13,6 +15,8 @@ error_vt.style = "bold red"
 
 main_vt = Console()
 main_vt.style = "bold white"
+
+main_tp = vt(bold = True, sleep = .03)
 
 # File Paths
 HEAD_DATA_FOLDER = join("Traveler", "data")

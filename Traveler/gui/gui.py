@@ -10,8 +10,6 @@ class GUI:
         self.quick_text.style = "bold white"
 
     # Display
-    # Game Details
-    #region
     def display_options(self, options: list[str]) -> None:
         worded = []
         for i, option in enumerate(options, 1):
@@ -26,6 +24,8 @@ class GUI:
         self.main_text.typewriter("That is not a valid option...")
         self.main_text.inputTypewriter("Press Enter to Continue.", end = "")
 
+    # Game Details
+    #region
     def display_game_details(self, details: dict, name_options) -> None:
         game_name = details["Name"] if details["Name"] else "New Save"
         if game_name == "New Save":
@@ -89,14 +89,31 @@ class GUI:
         main_vt.print(f" {name} | {age} | {gender} ".center(len(longest_line)))
         main_vt.print(longest_line)
 
-    def quick_game_details(self, details: dict):
-        description = details["Base Desc"]
-        difficulty = description["Difficulty"]
-        name = description["Name"]
-        cash = description["Cash"]
-        food = description["Food"]
+    def selecting_game(self, saves: dict):
+        table = Table(
+            show_header = False,
+            box = box.SIMPLE,
+            pad_edge = False,
+            padding = (0, 1),
+            expand = False
+        )
 
-        # Display Output
+        for _ in saves:
+            table.add_column(justify = "center", no_wrap = True, width = 15)
+
+        row_cells = []
+        for slot, data in saves.items():
+            base = data["Base Desc"]
+            cell_text = f"{slot}\nName: {base['Name']}\nDiff: {base['Difficulty']}\nCash: {base['Cash']}\nFood: {base['Food']}"
+            row_cells.append(cell_text)
+        
+        table.add_row(*row_cells)
+
+        row = "─" * main_vt.measure(table).maximum
+
+        main_vt.print(row)
+        main_vt.print(table)
+        main_vt.print(row)
     #endregion
 
     # Traveling Display

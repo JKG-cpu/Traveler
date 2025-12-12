@@ -18,13 +18,25 @@ class Main:
         return return_value
 
     # Resume Game
-    def resume_game(self, save_number: int) -> bool:
+    def resume_game(self, save_number: int | None = None) -> bool:
         """
         :return: Returns False for quit and True for main menu
         :rtype: bool
         """
         cc()
         return_to_main_menu = True
+
+        if save_number is None:
+            # Select Save
+            while True:
+                # Display Saves
+                self.gui.selecting_game(self.game.GameLoader.data)
+                break
+
+                # Select Save
+                self.gui.userInput()
+
+            save_number = 1
 
         self.game.play_game(save_number)
 
@@ -66,6 +78,8 @@ class Main:
             elif userInput.startswith("N"):
                 return_value = self.new_game()
                 if return_value[1] is None:
+                    main_tp.typewriter("All saves used!")
+                    self.gui.userInput("Press Enter to continue.", end = " ")
                     continue
                 self.resume_game(return_value[1])
 
