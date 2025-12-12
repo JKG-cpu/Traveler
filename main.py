@@ -29,14 +29,32 @@ class Main:
         if save_number is None:
             # Select Save
             while True:
+                cc()
                 # Display Saves
                 self.gui.selecting_game(self.game.GameLoader.data)
-                break
 
                 # Select Save
-                self.gui.userInput()
+                user_input = self.gui.userInput(
+                    message = "Enter in a save number, or type cancel to exit",
+                    special_cases = [
+                        str.title, str.strip
+                    ]
+                )
 
-            save_number = 1
+                if user_input.startswith("C"):
+                    return return_to_main_menu
+                
+                if "1" in user_input:
+                    save_number = 1
+                    break
+
+                if "2" in user_input and self.game.GameLoader.data["Save 2"]["Used"]:
+                    save_number = 2
+                    break
+
+                if "3" in user_input and self.game.GameLoader.data["Save 3"]["Used"]:
+                    save_number = 3
+                    break
 
         self.game.play_game(save_number)
 
