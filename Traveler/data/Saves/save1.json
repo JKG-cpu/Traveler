@@ -2,9 +2,9 @@
   "Difficulty-Selection": "Easy",
   "Name": "New Save",
   "Character": {
-    "Name": "David",
-    "Age": "27",
-    "Gender": "Male"
+    "Name": "Ava",
+    "Age": "24",
+    "Gender": "Female"
   },
   "Inventory": [
     {
@@ -23,7 +23,7 @@
     "Traveling": {
       "day": 0,
       "weather": "",
-      "speed": "",
+      "speed": 0,
       "distance": 0,
       "progress": 0
     },

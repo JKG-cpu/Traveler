@@ -1,10 +1,10 @@
 {
-  "Difficulty-Selection": "Medium",
+  "Difficulty-Selection": "Easy",
   "Name": "New Save",
   "Character": {
-    "Name": "Emily",
-    "Age": "30",
-    "Gender": "Female"
+    "Name": "William",
+    "Age": "21",
+    "Gender": "Male"
   },
   "Inventory": [
     {
@@ -16,16 +16,6 @@
       "Name": "Cash",
       "Amount": "$1000",
       "Details": "Oooh... Money!"
-    },
-    {
-      "Name": "Food",
-      "Amount": "50 lbs",
-      "Details": "Yummy"
-    },
-    {
-      "Name": "Cash",
-      "Amount": "$500",
-      "Details": "Oooh... Money!"
     }
   ],
   "Event": "Traveling",
@@ -33,7 +23,7 @@
     "Traveling": {
       "day": 0,
       "weather": "",
-      "speed": "",
+      "speed": 3,
       "distance": 0,
       "progress": 0
     },

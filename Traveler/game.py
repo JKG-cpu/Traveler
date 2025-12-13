@@ -244,7 +244,16 @@ class Game:
             if TRAVELING:
                 return_value = self.travelManager.run(loaded_save, NEW_TRAVEL)
                 NEW_TRAVEL = False
-                running = False
+
+                if return_value == "In-Town":
+                    TRAVELING = False
+                    IN_TOWN = True
+                    continue
+
+                if return_value == "Quit":
+                    TRAVELING = False
+                    PAUSED = True
+                    continue
 
             elif IN_TOWN:
                 pass
@@ -253,4 +262,5 @@ class Game:
                 pass
 
             elif PAUSED:
-                pass
+                running = False
+

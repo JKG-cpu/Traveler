@@ -106,7 +106,7 @@ class GameLoader(DataLoader):
                 "Traveling": {
                     "day": 0,
                     "weather": "",
-                    "speed": "",
+                    "speed": 3,
                     "distance": 0,
                     "progress": 0
                 },

@@ -117,7 +117,7 @@ class GUI:
     #endregion
 
     # Traveling Display
-    def display_window(self, data: dict, window_width: int = 70) -> str | None:
+    def display_window(self, data: dict, commands: list, window_width: int = 70) -> str | None:
         day = data["day"]
         food = data["food"]["Amount"]
         cash = data["cash"]["Amount"]
@@ -171,6 +171,14 @@ class GUI:
         main_vt.print(border)
 
         # Command Zone
+        main_vt.print("Commands:")
+        print()
+        for i, command in enumerate(commands, 1):
+            if i == len(commands):
+                main_vt.print(f"{command}")
+            else:
+                main_vt.print(f"{commands} | ", end = "")
+        print()
         return self.userInput(message = "Enter a command or press enter to continue", special_cases = [str.title, str.strip])
 
     # Input

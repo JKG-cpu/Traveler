@@ -5,10 +5,13 @@ class TravelManager:
     def __init__(self) -> None:
         self.gui = GUI()
         self.travel_ranges = [50, 75, 100, 125]
+        self.commands = [
+            "Speed", "Quit"
+        ]
 
-    # Make Values
+    # Make / Change Values
     def new_travel(self) -> int:
-        return random.choice(self.travel_ranges)
+        return int(random.choice(self.travel_ranges))
 
     # Run
     def run(self, data: dict, new_travel: bool = False) -> None | str:
@@ -34,9 +37,16 @@ class TravelManager:
         }
 
         # Display Data
-        user_input = self.gui.display_window(fixed_data)
+        user_input = self.gui.display_window(fixed_data, self.commands)
 
         # Check input
-        main_vt.print(user_input)
+        if user_input.startswith("S"):
+            input()
+        
+        if user_input.startswith("Q"):
+            return "Quit"
 
+        traveling["progress"] += traveling["speed"]
+        traveling["distance"] -= int((traveling["speed"] / 100) * traveling["distance"])
+    
         return None
