@@ -24,6 +24,7 @@ class TravelManager:
         
         if new_travel:
             traveling["distance"] = self.new_travel()
+            traveling["total_dist"] = traveling["distance"]
 
         fixed_data = {
             "day": traveling["day"],
@@ -33,6 +34,7 @@ class TravelManager:
             "weather": traveling["weather"],
             "speed": traveling["speed"],
             "distance": traveling["distance"],
+            "total_dist": traveling["total_dist"],
             "progress": traveling["progress"]
         }
 
@@ -46,7 +48,7 @@ class TravelManager:
         if user_input.startswith("Q"):
             return "Quit"
 
-        traveling["progress"] += traveling["speed"]
-        traveling["distance"] -= int((traveling["speed"] / 100) * traveling["distance"])
+        traveling["distance"] -= traveling["speed"]
+        traveling["progress"] = int(traveling["total_dist"] - traveling["distance"])
     
         return None

@@ -76,6 +76,16 @@ class GameLoader(DataLoader):
 
         self.current_loaded_save = None
 
+        self.empty_save = {
+            "FilePath": "Traveler/data/Saves/save3.json",
+            "Base Desc": {
+            "Difficulty": "",
+            "Name": "",
+            "Cash": "",
+            "Food": ""
+            },
+            "Used": False
+        }
         self.game_options = {
             "Difficulty": {
                 "Easy": {
@@ -108,6 +118,7 @@ class GameLoader(DataLoader):
                     "weather": "",
                     "speed": 3,
                     "distance": 0,
+                    "total_dist": 0,
                     "progress": 0
                 },
                 "In-Town": {},
@@ -164,6 +175,13 @@ class GameLoader(DataLoader):
         else:
             return False
         
+    def reset_save(self, number: str | int) -> None:
+        sub_path = join(self.file_path.removesuffix(".json"), f"save{number}.json")
+
+        self.data[f"Save {number}"] = self.empty_save
+        self.begin_process("Save", self.data)
+        self.begin_process("Save", {}, file_path = sub_path)
+
 class PlayerLoader(DataLoader):
     def __init__(self, file_path: str) -> None:
         super().__init__(file_path)

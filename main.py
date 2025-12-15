@@ -11,8 +11,6 @@ class Main:
 
     # New Game
     def new_game(self) -> tuple[bool, int] | tuple[bool, None]:
-        return_to_main_menu = True
-
         return_value = self.game.create_new_game()
 
         return return_value
@@ -112,6 +110,11 @@ class Main:
             else:
                 self.gui.wrong_option()
 
+    def test(self):
+        self.game.GameLoader.reset_save(1)
+        self.game.GameLoader.reset_save(2)
+        self.game.GameLoader.reset_save(3)
+
 if __name__ == "__main__":
     main = Main()
-    main.run()
+    main.test()

@@ -177,7 +177,7 @@ class GUI:
             if i == len(commands):
                 main_vt.print(f"{command}")
             else:
-                main_vt.print(f"{commands} | ", end = "")
+                main_vt.print(f"{command} | ", end = "")
         print()
         return self.userInput(message = "Enter a command or press enter to continue", special_cases = [str.title, str.strip])
 

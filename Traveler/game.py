@@ -241,6 +241,8 @@ class Game:
                 PAUSED = True
 
         while running:
+            cc()
+            
             if TRAVELING:
                 return_value = self.travelManager.run(loaded_save, NEW_TRAVEL)
                 NEW_TRAVEL = False
