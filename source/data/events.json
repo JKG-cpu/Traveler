@@ -2,8 +2,9 @@
     "road_events": [
         {
             "Name": "Broken Wheel",
+            "Color": "red",
             "Description": "One of the wheels on your wagon broke!",
-            "choices": [
+            "Choices": [
                 {
                     "text": "Move on slowly",
                     "effects": {

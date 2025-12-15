@@ -181,6 +181,15 @@ class GUI:
         print()
         return self.userInput(message = "Enter a command or press enter to continue", special_cases = [str.title, str.strip])
 
+    # Event Display
+    def display_event(self, name: str, text_color: str, desc: str, choices: list[dict]) -> None:
+        # Display Name
+        print()
+
+        # Display Desc
+
+        # Display Choices
+
     # Input
     #region
     def userInput(self, message: str, end: str = " > ", special_cases: dict = None) -> str:

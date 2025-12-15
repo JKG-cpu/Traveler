@@ -242,13 +242,11 @@ class Game:
             case "Event":
                 EVENT = True
 
-            case PAUSED:
-                PAUSED = True
-
         while running:
             cc()
 
             if TRAVELING:
+                loaded_save["Event"] = "Traveling"
                 return_value = self.travelManager.run(loaded_save, NEW_TRAVEL)
                 NEW_TRAVEL = False
 
@@ -262,11 +260,21 @@ class Game:
                     PAUSED = True
                     continue
 
+                if isinstance(return_value, dict):
+                    TRAVELING = False
+                    EVENT = True
+                    event_to_run = return_value
+
             elif IN_TOWN:
+                # loaded_save["Event"] = "In-Town"
                 running = False
 
             elif EVENT:
-                pass
+                # loaded_save["Event"] = "Event"
+                # Handle Event with Event Manager
+                
+
+                running = False
 
             elif PAUSED:
                 running = False

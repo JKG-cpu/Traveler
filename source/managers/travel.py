@@ -79,7 +79,4 @@ class TravelManager:
             traveling["progress"] = 100
             return "In-Town"
 
-        print(self.events.road_event())
-        input()
-
-        return None
+        return self.events.road_event()
