@@ -1,0 +1,35 @@
+{
+  "Difficulty-Selection": "Easy",
+  "Name": "New Save",
+  "Character": {
+    "Name": "William",
+    "Age": "25",
+    "Gender": "Male"
+  },
+  "Inventory": [
+    {
+      "Name": "Food",
+      "Amount": "75 lbs",
+      "Details": "Yummy"
+    },
+    {
+      "Name": "Cash",
+      "Amount": "$1000",
+      "Details": "Oooh... Money!"
+    }
+  ],
+  "Event": "Traveling",
+  "Event-types": {
+    "Traveling": {
+      "day": 21,
+      "weather": "",
+      "speed": 5,
+      "distance": 45,
+      "total_dist": 100,
+      "progress": 55
+    },
+    "In-Town": {},
+    "Event": {},
+    "Paused": {}
+  }
+}

@@ -19,7 +19,7 @@ main_vt.style = "bold white"
 main_tp = vt(bold = True, sleep = .03)
 
 # File Paths
-HEAD_DATA_FOLDER = join("Traveler", "data")
+HEAD_DATA_FOLDER = join("source", "data")
 
 # Functions
 def cc():

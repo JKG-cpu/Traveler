@@ -139,7 +139,7 @@ class GUI:
 
         # Columns
         left_col = f"DAY: {day}\nFOOD: {food}\nCASH: {cash}\nHEALTH: {health}"
-        right_col = f"WEATHER: {weather}\nSPEED: {speed}\nDISTANCE: {distance} miles\nPROGRESS: {progress_percent}%"
+        right_col = f"WEATHER: {weather}\nSPEED: {speed} M\\Day\nDISTANCE: {distance} miles\nPROGRESS: {progress_percent}%"
 
         left_lines = left_col.split("\n")
         right_lines = right_col.split("\n")

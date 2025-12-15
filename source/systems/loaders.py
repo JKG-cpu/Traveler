@@ -1,4 +1,5 @@
 from .settings import *
+import pprint
 
 class DataLoader:
     def __init__(self, file_path: str) -> None:
@@ -77,7 +78,7 @@ class GameLoader(DataLoader):
         self.current_loaded_save = None
 
         self.empty_save = {
-            "FilePath": "Traveler/data/Saves/save3.json",
+            "FilePath": "",
             "Base Desc": {
             "Difficulty": "",
             "Name": "",
@@ -133,7 +134,7 @@ class GameLoader(DataLoader):
 
     def load_save(self, number: str | int) -> None:
         file_path = self.data[f"Save {number}"]["FilePath"]
-        self.current_loaded_save = self.load_data(filepath = file_path)
+        self.current_loaded_save = (self.load_data(filepath = file_path), file_path)
 
     def new_save(self, details: dict) -> int | bool:
         for save in self.data:
@@ -175,12 +176,18 @@ class GameLoader(DataLoader):
         else:
             return False
         
+    def valid_saves(self) -> bool:
+        return any(self.data[save]["Used"] for save in self.data)
+
     def reset_save(self, number: str | int) -> None:
         sub_path = join(self.file_path.removesuffix(".json"), f"save{number}.json")
+        save = self.empty_save.copy()
 
-        self.data[f"Save {number}"] = self.empty_save
+        save["FilePath"] = sub_path
+
+        self.data[f"Save {number}"] = save
         self.begin_process("Save", self.data)
-        self.begin_process("Save", {}, file_path = sub_path)
+        self.begin_process("Save", data = {}, file_path = sub_path)
 
 class PlayerLoader(DataLoader):
     def __init__(self, file_path: str) -> None:
@@ -191,9 +198,8 @@ class EventLoader(DataLoader):
         super().__init__(file_path)
         
         # Event Types
-        self.road_events = self.data["road_events"]
-        self.party_events = self.data["party_events"]
-        self.town_events = self.data["town_events"]
-        self.enviroment_events = self.data["enviroment_events"]
-        self.positive_events = self.data["positive_events"]
-
+        # self.road_events = self.data["road_events"]
+        # self.party_events = self.data["party_events"]
+        # self.town_events = self.data["town_events"]
+        # self.enviroment_events = self.data["enviroment_events"]
+        # self.positive_events = self.data["positive_events"]

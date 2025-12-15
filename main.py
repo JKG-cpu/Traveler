@@ -1,4 +1,4 @@
-from Traveler import *
+from source import *
 
 # Main Menu
 class Main:
@@ -100,9 +100,15 @@ class Main:
                 self.resume_game(return_value[1])
 
             elif userInput.startswith("R"):
-                main_menu = self.resume_game()
-                if not main_menu:
-                    self.quit()
+                if self.game.valid_saves():
+                    main_menu = self.resume_game()
+                    if not main_menu:
+                        self.quit()
+                else:
+                    self.gui.userInput(
+                        message = "Go make a save! Press Enter to continue.",
+                        end = " "
+                    )
 
             elif userInput.startswith("S"):
                 self.settings()
@@ -110,11 +116,11 @@ class Main:
             else:
                 self.gui.wrong_option()
 
-    def test(self):
+    def hard_reset(self):
         self.game.GameLoader.reset_save(1)
         self.game.GameLoader.reset_save(2)
         self.game.GameLoader.reset_save(3)
 
 if __name__ == "__main__":
     main = Main()
-    main.test()
+    main.run()

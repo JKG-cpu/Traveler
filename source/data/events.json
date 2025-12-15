@@ -1,27 +1,27 @@
 {
     "road_events": [
         {
-            "Name": "",
-            "Description": "",
+            "Name": "Broken Wheel",
+            "Description": "One of the wheels on your wagon broke!",
             "choices": [
                 {
-                    "text": "",
+                    "text": "Move on slowly",
                     "effects": {
-                        "days": "",
+                        "days": 0,
                         "health": 0,
-                        "food": -0
+                        "food": -5
                     }
                 },
                 {
-                    "text": "",
+                    "text": "Fix",
                     "effects": {
-                        "days": "",
+                        "days": 1,
                         "health": 0,
                         "food": -0
                     }
                 }
             ],
-            "trigger_chance": 0
+            "trigger_chance": 0.1
         }
     ],
     "party_events": [

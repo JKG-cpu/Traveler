@@ -12,6 +12,10 @@ class Game:
         # Event Managers
         self.travelManager = TravelManager()
 
+    # Helpers
+    def valid_saves(self) -> bool:
+        return self.GameLoader.valid_saves()
+
     # Creating a game
     #region
     def difficulty(self, options) -> str:
@@ -213,7 +217,8 @@ class Game:
     def play_game(self, save_number: int) -> None:
         running = True
         self.GameLoader.load_save(save_number)
-        loaded_save = self.GameLoader.current_loaded_save
+        loaded_save = self.GameLoader.current_loaded_save[0]
+        file_path = self.GameLoader.current_loaded_save[1]
 
         # Events
         TRAVELING = False
@@ -236,13 +241,13 @@ class Game:
 
             case "Event":
                 EVENT = True
-            
+
             case PAUSED:
                 PAUSED = True
 
         while running:
             cc()
-            
+
             if TRAVELING:
                 return_value = self.travelManager.run(loaded_save, NEW_TRAVEL)
                 NEW_TRAVEL = False
@@ -258,11 +263,17 @@ class Game:
                     continue
 
             elif IN_TOWN:
-                pass
+                running = False
 
             elif EVENT:
                 pass
 
             elif PAUSED:
                 running = False
+
+        self.GameLoader.begin_process(
+            type = "Save",
+            data = loaded_save,
+            file_path = file_path
+        )
 
