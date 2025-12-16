@@ -277,9 +277,22 @@ class Game:
                     event = event_to_run
                 )
 
-                # TODO: Make changes smoother
-                for key in changes:
-                    loaded_save["Event-types"]["Traveling"][key] += changes[key]
+                # Apply changes from event to the appropriate locations
+                if changes.get("days", 0) != 0:
+                    loaded_save["Event-types"]["Traveling"]["day"] += changes["days"]
+                
+                if changes.get("food", 0) != 0:
+                    # Find food item in inventory and update it
+                    for item in loaded_save["Inventory"]:
+                        if item["Name"] == "Food":
+                            # Parse current amount (e.g., "75 lbs" -> 75)
+                            current_amount = int(item["Amount"].split()[0])
+                            new_amount = current_amount + changes["food"]
+                            item["Amount"] = f"{new_amount} lbs"
+                            break
+                
+                # Note: health changes are currently not tracked in the save structure
+                # If health tracking is added in the future, implement it here
 
                 EVENT = False
                 TRAVELING = True
