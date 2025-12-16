@@ -283,13 +283,24 @@ class Game:
                 
                 if changes.get("food", 0) != 0:
                     # Find food item in inventory and update it
+                    food_found = False
                     for item in loaded_save["Inventory"]:
                         if item["Name"] == "Food":
-                            # Parse current amount (e.g., "75 lbs" -> 75)
-                            current_amount = int(item["Amount"].split()[0])
-                            new_amount = current_amount + changes["food"]
-                            item["Amount"] = f"{new_amount} lbs"
-                            break
+                            try:
+                                # Parse current amount (e.g., "75 lbs" -> 75)
+                                current_amount = int(item["Amount"].split()[0])
+                                new_amount = max(0, current_amount + changes["food"])
+                                item["Amount"] = f"{new_amount} lbs"
+                                food_found = True
+                                break
+                            except (ValueError, IndexError):
+                                # If parsing fails, log error but continue
+                                main_vt.print(f"Warning: Could not parse food amount: {item['Amount']}")
+                                food_found = True
+                                break
+                    
+                    if not food_found:
+                        main_vt.print("Warning: Food item not found in inventory")
                 
                 # Note: health changes are currently not tracked in the save structure
                 # If health tracking is added in the future, implement it here
