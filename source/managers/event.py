@@ -42,18 +42,40 @@ class EventManager:
         name = event["Name"]
         details = event["Description"]
         choices = event["Choices"]
+        choice_amount = len(choices)
         text_color = event.get("Color", "white")
         
-        # Display Event Details
-        self.gui.display_event(
-            name = name,
-            text_color = text_color,
-            desc = details,
-            choices = choices
-        )
+        while True:
+            cc()
+            # Display Event Details
+            self.gui.display_event(
+                name = name,
+                text_color = text_color,
+                desc = details,
+                choices = choices
+            )
 
-        # Get User Input
+            # Get User Input
+            user_input = self.gui.userInput(
+                message = "Select an option",
+                special_cases = [
+                    str.strip
+                ]
+            )
 
-        # Return Changes
-        return changes
+            if not user_input.isdigit():
+                self.gui.wrong_option()
+                continue
+
+            user_input = int(user_input)
+
+            if user_input <= choice_amount > 0:
+                item = choices[user_input - 1]
+
+                for effect in item["effects"]:
+                    changes[effect] += item["effects"][effect]
+
+                return changes
     
+            else:
+                self.gui.wrong_option()

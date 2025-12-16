@@ -11,6 +11,7 @@ class Game:
 
         # Event Managers
         self.travelManager = TravelManager()
+        self.eventManager = EventManager(join("source", "data", "events.json"))
 
     # Helpers
     def valid_saves(self) -> bool:
@@ -272,7 +273,11 @@ class Game:
             elif EVENT:
                 # loaded_save["Event"] = "Event"
                 # Handle Event with Event Manager
-                
+                changes = self.eventManager.run_event(
+                    event = event_to_run
+                )
+                print(changes)
+                input()
 
                 running = False
 

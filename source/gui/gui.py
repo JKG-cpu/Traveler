@@ -10,7 +10,7 @@ class GUI:
         self.quick_text.style = "bold white"
 
     # Display
-    def display_options(self, options: list[str]) -> None:
+    def display_options(self, options: list[str], center: bool = False, center_amount: int = 0) -> None:
         worded = []
         for i, option in enumerate(options, 1):
             if i == len(options):
@@ -18,7 +18,10 @@ class GUI:
             else:
                 worded.append(f"{option} | ")
         
-        self.quick_text.print("".join(worded))
+        if center:
+            self.quick_text.print("".join(worded).center(center_amount))
+        else:
+            self.quick_text.print("".join(worded))
 
     def wrong_option(self) -> None:
         self.main_text.typewriter("That is not a valid option...")
@@ -183,12 +186,33 @@ class GUI:
 
     # Event Display
     def display_event(self, name: str, text_color: str, desc: str, choices: list[dict]) -> None:
-        # Display Name
-        print()
+        # Calculate content width
+        choice_texts = [f"{i+1}. {c['text']}" for i, c in enumerate(choices)]
+        content_width = max(
+            len(desc),
+            max(len(text) for text in choice_texts),
+            len(name)
+        ) + 6
 
-        # Display Desc
+        top_border = "┌" + "─" * content_width + "┐"
+        mid_border = "├" + "─" * content_width + "┤"
+        bot_border = "└" + "─" * content_width + "┘"
 
-        # Display Choices
+        # Title
+        main_vt.print(top_border)
+        main_vt.print(f"│ {name.center(content_width - 2)} │")
+        main_vt.print(mid_border)
+
+        # Description
+        main_vt.print(f"│ [{text_color}]{desc.center(content_width - 2)}[/] │")
+        main_vt.print(mid_border)
+
+        # Choices
+        main_vt.print(f"│ {'Choices'.center(content_width - 2)} │")
+        for text in choice_texts:
+            main_vt.print(f"│ {text.ljust(content_width - 2)} │")
+
+        main_vt.print(bot_border)
 
     # Input
     #region

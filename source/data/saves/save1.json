@@ -21,12 +21,12 @@
   "Event": "Traveling",
   "Event-types": {
     "Traveling": {
-      "day": 30,
+      "day": 68,
       "weather": "",
       "speed": 1,
-      "distance": 16,
-      "total_dist": 100,
-      "progress": 84
+      "distance": 28,
+      "total_dist": 50,
+      "progress": 44
     },
     "In-Town": {},
     "Event": {},

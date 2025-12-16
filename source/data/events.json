@@ -8,7 +8,7 @@
                 {
                     "text": "Move on slowly",
                     "effects": {
-                        "days": 0,
+                        "days": 2,
                         "health": 0,
                         "food": -5
                     }
@@ -22,7 +22,7 @@
                     }
                 }
             ],
-            "trigger_chance": 0.1
+            "trigger_chance": 0.9
         }
     ],
     "party_events": [
