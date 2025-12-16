@@ -276,10 +276,13 @@ class Game:
                 changes = self.eventManager.run_event(
                     event = event_to_run
                 )
-                print(changes)
-                input()
 
-                running = False
+                # TODO: Make changes smoother
+                for key in changes:
+                    loaded_save["Event-types"]["Traveling"][key] += changes[key]
+
+                EVENT = False
+                TRAVELING = True
 
             elif PAUSED:
                 running = False

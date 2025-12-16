@@ -9,15 +9,13 @@
                     "text": "Move on slowly",
                     "effects": {
                         "days": 2,
-                        "health": 0,
                         "food": -5
                     }
                 },
                 {
                     "text": "Fix",
                     "effects": {
-                        "days": 1,
-                        "health": 0,
+                        "days": 3,
                         "food": -0
                     }
                 }
