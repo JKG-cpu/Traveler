@@ -8,8 +8,7 @@ class EventManager:
         self.no_event_chance = .5
 
         self.base_return_template = {
-            "health": 0,
-            "days": 0,
+            "day": 0,
             "food": 0
         }
 
@@ -73,7 +72,13 @@ class EventManager:
                 item = choices[user_input - 1]
 
                 for effect in item["effects"]:
-                    changes[effect] += item["effects"][effect]
+                    changes[effect] = changes.get(effect, 0) + item["effects"][effect]
+
+                # Display Effects
+                # Need to fix effect printing...
+                main_vt.print(f"You choose: {details}")
+                main_vt.print(f"Effects caused: {f" | ".join(f"{key}: {value}" for key, value in item["effects"].items())}")
+                main_vt.input("Press Enter to continue. ")
 
                 return changes
     

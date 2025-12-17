@@ -8,16 +8,14 @@
                 {
                     "text": "Move on slowly",
                     "effects": {
-                        "days": 2,
-                        "health": 0,
+                        "day": 2,
                         "food": -5
                     }
                 },
                 {
                     "text": "Fix",
                     "effects": {
-                        "days": 1,
-                        "health": 0,
+                        "day": 1,
                         "food": -0
                     }
                 }
